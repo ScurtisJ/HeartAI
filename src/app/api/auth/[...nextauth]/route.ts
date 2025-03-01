@@ -1,7 +1,7 @@
 import { NextAuthOptions } from 'next-auth'
 import NextAuth from 'next-auth/next'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 import { prisma } from '@/lib/prisma'
 import { PrismaAdapter } from '@/lib/auth/prisma-adapter'
 
@@ -38,8 +38,8 @@ export const authOptions: NextAuthOptions = {
         return {
           id: user.id,
           email: user.email,
-          name: user.name,
-          image: user.image
+          name: user.firstName ? `${user.firstName} ${user.lastName}` : undefined,
+          image: undefined
         }
       }
     })
